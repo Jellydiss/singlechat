@@ -10,10 +10,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-public class AppInitializer implements WebApplicationInitializer {
+public class WebAppInitializer implements WebApplicationInitializer {
 
     private static final String CONFIG_LOCATION = "org.jellydiss.singlechat.common.config";
-    private static final String MAPPING_URL = "/*";
+    private static final String MAPPING_URL = "/";
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
