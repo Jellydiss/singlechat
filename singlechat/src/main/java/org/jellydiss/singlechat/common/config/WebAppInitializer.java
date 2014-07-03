@@ -12,7 +12,7 @@ import javax.servlet.ServletRegistration;
 
 public class WebAppInitializer implements WebApplicationInitializer {
 
-    private static final String CONFIG_LOCATION = "org.jellydiss.singlechat.common.config";
+    private static final String CONFIG_LOCATION = "org.jellydiss.singlechat";
     private static final String MAPPING_URL = "/";
 
     @Override

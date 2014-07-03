@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = "org.jellydiss.singlechat")
-class MvcConfiguration extends WebMvcConfigurerAdapter{
+public class MvcConfiguration extends WebMvcConfigurerAdapter{
     @Bean
     public InternalResourceViewResolver getViewResolver(){
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -19,4 +19,6 @@ class MvcConfiguration extends WebMvcConfigurerAdapter{
         resolver.setSuffix(".jsp");
         return resolver;
     }
+    
+    
 }
