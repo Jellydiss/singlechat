@@ -10,15 +10,17 @@ import org.jellydiss.singlechat.common.config.MvcConfiguration;
 import org.jellydiss.singlechat.common.config.WebAppInitializer;
 import org.jellydiss.singlechat.common.config.hibernate.HibernateConfig;
 import org.jellydiss.singlechat.common.config.hibernate.RepositoryConfig;
-import org.jellydiss.singlechat.login.entity.Login;
-import org.jellydiss.singlechat.login.service.LoginService;
+import org.jellydiss.singlechat.user.entity.User;
+import org.jellydiss.singlechat.user.login.service.LoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes ={
@@ -33,9 +35,11 @@ public class LoginServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	private LoginService loginService;
 
 	@Test
+	@Rollback(true)
 	public void createUser(){
 
-		Login user = new Login();
+		
+		User user = new User();
 		
 		user.setUserId("test");
 		user.setUserpw("asdf");
@@ -46,8 +50,7 @@ public class LoginServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		user.setUpdDateTime(new String( sdFormat.format(nowDate)));
 		
 		
-		Integer seq = loginService.createUser(user);
-		System.out.println(seq);
+	    loginService.createUser(user);
 		
 		assertTrue(true);
 	}

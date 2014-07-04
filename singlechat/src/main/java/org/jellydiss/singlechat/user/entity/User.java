@@ -1,4 +1,6 @@
-package org.jellydiss.singlechat.login.entity;
+package org.jellydiss.singlechat.user.entity;
+
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +14,10 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="USERS_TB")
-public class Login {
+public class User implements Serializable{
+	
+	private static final long serialVersionUID = 7111232751743240524L;
+
 	@Id
 	@Column(name = "USER_SEQ")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,12 +37,12 @@ public class Login {
 	private String updDateTime;
 	
 	
-	public Login() {
+	public User() {
 		super();
 	}
 
 
-	public Login(Integer userSeq, String userId, String userpw, String regDateTime,
+	public User(Integer userSeq, String userId, String userpw, String regDateTime,
 		String updDateTime) {
 	super();
 	this.userSeq = userSeq;
