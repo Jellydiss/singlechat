@@ -1,5 +1,7 @@
 package org.jellydiss.singlechat.user.login.repository;
 
+
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.jellydiss.singlechat.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,17 @@ public class LoginRepository {
 		sessionFactory.getCurrentSession().save(user);
 	}
 
-	public User getUser(User user) {
+	public User getUser(int userSeq) {
 		
-		return (User) sessionFactory.getCurrentSession().get(User.class, user.getUserSeq());
+		return (User) sessionFactory.getCurrentSession().get(User.class, userSeq);
 	}
 
+	public int getUserSeq(User user) {
+		Query query = sessionFactory.getCurrentSession().createQuery("from User as u where u.userId = :userId" );
+		query.setParameter("userId", user.getUserId());
+		
+		user = (User) query.uniqueResult();
+		
+		return user.getUserSeq();
+	}
 }

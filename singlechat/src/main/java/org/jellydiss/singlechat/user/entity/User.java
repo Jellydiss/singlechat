@@ -16,6 +16,14 @@ import javax.validation.constraints.NotNull;
 @Table(name="USERS_TB")
 public class User implements Serializable{
 	
+	@Override
+	public String toString() {
+		return "User [userSeq=" + userSeq + ", userId=" + userId + ", userpw="
+				+ userpw + ", regDateTime=" + regDateTime + ", updDateTime="
+				+ updDateTime + "]";
+	}
+
+
 	private static final long serialVersionUID = 7111232751743240524L;
 
 	@Id

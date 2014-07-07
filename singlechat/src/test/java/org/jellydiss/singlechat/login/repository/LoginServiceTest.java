@@ -2,10 +2,6 @@ package org.jellydiss.singlechat.login.repository;
 
 import static org.junit.Assert.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.jellydiss.singlechat.common.config.MvcConfiguration;
 import org.jellydiss.singlechat.common.config.WebAppInitializer;
 import org.jellydiss.singlechat.common.config.hibernate.HibernateConfig;
@@ -37,23 +33,30 @@ public class LoginServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	@Test
 	@Rollback(true)
 	public void createUser(){
-
 		
 		User user = new User();
 		
-		user.setUserId("test");
+		user.setUserId("createTest");
 		user.setUserpw("asdf");
-		
-		DateFormat sdFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-		Date nowDate = new Date();
-		user.setRegDateTime(new String( sdFormat.format(nowDate)));
-		user.setUpdDateTime(new String( sdFormat.format(nowDate)));
-		
 		
 	    loginService.createUser(user);
 		
 		assertTrue(true);
 	}
+	
+	@Test
+	@Rollback(true)
+	public void getUser(){
+
+		User user = new User();
+		user.setUserId("test2");
+		
+	    loginService.getUser(user);
+		
+	    
+		assertTrue(true);
+	}
+	
 	
 	
 }
