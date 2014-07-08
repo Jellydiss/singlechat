@@ -7,6 +7,7 @@ import org.jellydiss.singlechat.common.config.WebAppInitializer;
 import org.jellydiss.singlechat.common.config.hibernate.HibernateConfig;
 import org.jellydiss.singlechat.common.config.hibernate.RepositoryConfig;
 import org.jellydiss.singlechat.user.entity.User;
+import org.jellydiss.singlechat.user.login.enums.LoginCheckStatus;
 import org.jellydiss.singlechat.user.login.service.LoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,31 +33,58 @@ public class LoginServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 
 	@Test
 	@Rollback(true)
-	public void createUser(){
-		
+	public void createUserSuccess(){
 		User user = new User();
 		
 		user.setUserId("createTest");
 		user.setUserpw("asdf");
+		try{
+			loginService.createUser(user);
+			assertTrue("getUserSuccess" , true);
+		}catch(Exception e){
+			e.printStackTrace();
+			assertTrue("getUserFail", false); // When throw Exception
+		}
 		
-	    loginService.createUser(user);
-		
-		assertTrue(true);
 	}
 	
 	@Test
-	@Rollback(true)
-	public void getUser(){
-
+	public void getUserSuccess(){
 		User user = new User();
 		user.setUserId("test2");
 		
-	    loginService.getUser(user);
-		
+	    User assertUser = loginService.getUser(user);
 	    
-		assertTrue(true);
+		assertNotNull("getUserSuccess", assertUser);
 	}
 	
+	@Test
+	public void getUserFail(){
+		User user = new User();
+		user.setUserId("nullUser"); // emptyUser
+		
+	    User assertUser = loginService.getUser(user);
+	    
+		assertNull("getUserSuccess", assertUser);
+	}
 	
+	@Test
+	public void loginSuccess(){
+		User user = new User();
+		
+		user.setUserId("test2");
+		user.setUserpw("asdf");
+		
+		assertSame("success Login", loginService.login(user), LoginCheckStatus.LOGIN_SUCCESS);
+	}
 	
+	@Test
+	public void loginIncorrectPassword(){
+		User user = new User();
+		
+		user.setUserId("test2");
+		user.setUserpw("arstarst");
+		
+		assertSame("success Login", loginService.login(user), LoginCheckStatus.PW_INCORRECT);
+	}
 }

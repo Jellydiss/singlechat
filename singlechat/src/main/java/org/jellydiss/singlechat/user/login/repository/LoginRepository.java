@@ -30,6 +30,8 @@ public class LoginRepository {
 		
 		user = (User) query.uniqueResult();
 		
+		if(user == null) return -1; // if user is null, return -1 
+		
 		return user.getUserSeq();
 	}
 }
