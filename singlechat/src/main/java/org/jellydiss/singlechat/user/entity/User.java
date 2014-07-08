@@ -10,19 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-
-
 @Entity
-@Table(name="USERS_TB")
-public class User implements Serializable{
-	
+@Table(name = "USERS_TB")
+public class User implements Serializable {
+
 	@Override
 	public String toString() {
 		return "User [userSeq=" + userSeq + ", userId=" + userId + ", userpw="
 				+ userpw + ", regDateTime=" + regDateTime + ", updDateTime="
 				+ updDateTime + "]";
 	}
-
 
 	private static final long serialVersionUID = 7111232751743240524L;
 
@@ -31,33 +28,31 @@ public class User implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userSeq;
 
-	@Column(name ="USER_ID")
+	@Column(name = "USER_ID")
 	@NotNull
 	private String userId;
-	
+
 	@Column(name = "USER_PW")
 	private String userpw;
-	
+
 	@Column(name = "REG_DATETIME")
 	private String regDateTime;
-	
+
 	@Column(name = "UPD_DATETIME")
 	private String updDateTime;
-	
-	
+
 	public User() {
 		super();
 	}
 
-
-	public User(Integer userSeq, String userId, String userpw, String regDateTime,
-		String updDateTime) {
-	super();
-	this.userSeq = userSeq;
-	this.userId = userId;
-	this.userpw = userpw;
-	this.regDateTime = regDateTime;
-	this.updDateTime = updDateTime;
+	public User(Integer userSeq, String userId, String userpw,
+			String regDateTime, String updDateTime) {
+		super();
+		this.userSeq = userSeq;
+		this.userId = userId;
+		this.userpw = userpw;
+		this.regDateTime = regDateTime;
+		this.updDateTime = updDateTime;
 	}
 
 	public Integer getUserSeq() {
@@ -84,25 +79,20 @@ public class User implements Serializable{
 		this.userpw = userpw;
 	}
 
-
 	public String getRegDateTime() {
 		return regDateTime;
 	}
-
 
 	public void setRegDateTime(String regDateTime) {
 		this.regDateTime = regDateTime;
 	}
 
-
 	public String getUpdDateTime() {
 		return updDateTime;
 	}
 
-
 	public void setUpdDateTime(String updDateTime) {
 		this.updDateTime = updDateTime;
 	}
-	
-	
+
 }

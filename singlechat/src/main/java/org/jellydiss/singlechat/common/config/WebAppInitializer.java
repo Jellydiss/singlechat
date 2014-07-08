@@ -12,22 +12,25 @@ import javax.servlet.ServletRegistration;
 
 public class WebAppInitializer implements WebApplicationInitializer {
 
-    private static final String CONFIG_LOCATION = "org.jellydiss.singlechat";
-    private static final String MAPPING_URL = "/";
+	private static final String CONFIG_LOCATION = "org.jellydiss.singlechat";
+	private static final String MAPPING_URL = "/";
 
-    @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        WebApplicationContext context = getContext();
-        servletContext.addListener(new ContextLoaderListener(context));
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("DispatcherServlet", new DispatcherServlet(context));
-        dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping(MAPPING_URL);
-    }
+	@Override
+	public void onStartup(ServletContext servletContext)
+			throws ServletException {
+		WebApplicationContext context = getContext();
+		servletContext.addListener(new ContextLoaderListener(context));
+		
+		ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
+				"DispatcherServlet", new DispatcherServlet(context));
+		dispatcher.setLoadOnStartup(1);
+		dispatcher.addMapping(MAPPING_URL);
+	}
 
-    private AnnotationConfigWebApplicationContext getContext() {
-        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.setConfigLocation(CONFIG_LOCATION);
-        return context;
-    }
-    
+	private AnnotationConfigWebApplicationContext getContext() {
+		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+		context.setConfigLocation(CONFIG_LOCATION);
+		return context;
+	}
+
 }

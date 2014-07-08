@@ -1,6 +1,5 @@
 package org.jellydiss.singlechat.common.config.hibernate;
 
-
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -16,17 +15,17 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 @Configuration
 public class RepositoryConfig {
-	@Value("${jdbc.driverClassName}")     
+	@Value("${jdbc.driverClassName}")
 	private String driverClassName;
-	@Value("${jdbc.url}")                 
+	@Value("${jdbc.url}")
 	private String url;
-	@Value("${jdbc.username}")             
+	@Value("${jdbc.username}")
 	private String username;
-	@Value("${jdbc.password}")             
+	@Value("${jdbc.password}")
 	private String password;
-	@Value("${hibernate.dialect}")         
+	@Value("${hibernate.dialect}")
 	private String hibernateDialect;
-	@Value("${hibernate.show_sql}")     
+	@Value("${hibernate.show_sql}")
 	private String hibernateShowSql;
 	@Value("${connection.pool_size}")
 	private String connectionPoolSize;
@@ -34,45 +33,46 @@ public class RepositoryConfig {
 	private String currentSessionContextClass;
 	@Value("${hbm2ddl.auto}")
 	private String hbm2ddlAuto;
-	@Bean()
-	public DataSource getDataSource(){
+
+	@Bean
+	public DataSource getDataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName(driverClassName);
-        ds.setUrl(url);
-        ds.setUsername(username);
-        ds.setPassword(password);        
-        return ds;
+		ds.setDriverClassName(driverClassName);
+		ds.setUrl(url);
+		ds.setUsername(username);
+		ds.setPassword(password);
+		return ds;
 	}
-	
-    @Bean
-    @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory)
-    {
-        HibernateTransactionManager htm = new HibernateTransactionManager();
-        htm.setSessionFactory(sessionFactory);
-        return htm;
-    }
-    @Bean
-    @Autowired
-    public LocalSessionFactoryBean getSessionFactory()
-    {
-    	LocalSessionFactoryBean lsfb = new LocalSessionFactoryBean();
-        lsfb.setDataSource(getDataSource());
-        lsfb.setHibernateProperties(getHibernateProperties());        
-        lsfb.setPackagesToScan(new String[]{"org.jellydiss.singlechat"});
-        return lsfb;
-    }
 
-    @Bean
-    public Properties getHibernateProperties()
-    {
-        Properties properties = new Properties();
-        properties.put("hibernate.dialect", hibernateDialect);
-        properties.put("hibernate.show_sql", hibernateShowSql);
-        properties.put("connection.pool_size", connectionPoolSize);
-        properties.put("current_session_context_class",currentSessionContextClass);
-        properties.put("hbm2ddl.auto", hbm2ddlAuto);
+	@Bean
+	@Autowired
+	public HibernateTransactionManager transactionManager(
+			SessionFactory sessionFactory) {
+		HibernateTransactionManager htm = new HibernateTransactionManager();
+		htm.setSessionFactory(sessionFactory);
+		return htm;
+	}
 
-        return properties;
-    }
+	@Bean
+	@Autowired
+	public LocalSessionFactoryBean getSessionFactory() {
+		LocalSessionFactoryBean lsfb = new LocalSessionFactoryBean();
+		lsfb.setDataSource(getDataSource());
+		lsfb.setHibernateProperties(getHibernateProperties());
+		lsfb.setPackagesToScan(new String[] { "org.jellydiss.singlechat" });
+		return lsfb;
+	}
+
+	@Bean
+	public Properties getHibernateProperties() {
+		Properties properties = new Properties();
+		properties.put("hibernate.dialect", hibernateDialect);
+		properties.put("hibernate.show_sql", hibernateShowSql);
+		properties.put("connection.pool_size", connectionPoolSize);
+		properties.put("current_session_context_class",
+				currentSessionContextClass);
+		properties.put("hbm2ddl.auto", hbm2ddlAuto);
+
+		return properties;
+	}
 }

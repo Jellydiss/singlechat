@@ -25,61 +25,51 @@ public class LoginService {
 
 	@Autowired
 	private LoginRepository loginRepository;
-	
-	
-	 
-	
+
 	@Transactional
 	public User getUser(User user) {
-		
 		return loginRepository.getUser(loginRepository.getUserSeq(user));
 	}
-	
+
 	@Transactional
 	public void createUser(User user) {
 		DateFormat sdFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date nowDate = new Date();
-		user.setRegDateTime(new String( sdFormat.format(nowDate)));
-		user.setUpdDateTime(new String( sdFormat.format(nowDate)));
-		
+		user.setRegDateTime(new String(sdFormat.format(nowDate)));
+		user.setUpdDateTime(new String(sdFormat.format(nowDate)));
+
 		loginRepository.createUser(encodeUser(user));
-	
 	}
 
-	public LoginCheckStatus login(User user){
-		
+	public LoginCheckStatus login(User user) {
+
 		User selectedUser = getUser(user);
-		
-		if(selectedUser == null){
+
+		if (selectedUser == null) {
 			createUser(user);
-			return login(user); 
+			return login(user);
 		}
-		if(encodeUser(user).getUserpw().equals(selectedUser.getUserpw()))
+		if (encodeUser(user).getUserpw().equals(selectedUser.getUserpw()))
 			return LoginCheckStatus.LOGIN_SUCCESS;
-		
-		return  LoginCheckStatus.PW_INCORRECT;
-			
-		
-			
+
+		return LoginCheckStatus.PW_INCORRECT;
+
 	}
-	
-	private User encodeUser(User user){
+
+	private User encodeUser(User user) {
 		try {
 			SecurityUtil.getInstance();
 			user.setUserpw(SecurityUtil.AES_Encode(user.getUserpw()));
-		} catch (InvalidKeyException | 
-				UnsupportedEncodingException | 
-				NoSuchAlgorithmException | 
-				NoSuchPaddingException	| 
-				InvalidAlgorithmParameterException |
-				IllegalBlockSizeException |
-				BadPaddingException e) {
+		} catch (InvalidKeyException | UnsupportedEncodingException
+				| NoSuchAlgorithmException | NoSuchPaddingException
+				| InvalidAlgorithmParameterException
+				| IllegalBlockSizeException | BadPaddingException e) {
 
 			e.printStackTrace();
 			return null;
 		}
 		return user;
-		
+
 	}
-	
+
 }
