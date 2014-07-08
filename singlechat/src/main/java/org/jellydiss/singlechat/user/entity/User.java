@@ -10,15 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 @Entity
 @Table(name = "USERS_TB")
 public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [userSeq=" + userSeq + ", userId=" + userId + ", userpw="
-				+ userpw + ", regDateTime=" + regDateTime + ", updDateTime="
-				+ updDateTime + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 	private static final long serialVersionUID = 7111232751743240524L;
