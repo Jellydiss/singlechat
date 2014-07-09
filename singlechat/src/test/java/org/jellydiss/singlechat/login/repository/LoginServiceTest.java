@@ -40,10 +40,10 @@ public class LoginServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		user.setUserpw("asdf");
 		try{
 			loginService.createUser(user);
-			assertTrue("getUserSuccess" , true);
+			assertTrue("Get user success" , true);
 		}catch(Exception e){
 			e.printStackTrace();
-			assertTrue("getUserFail", false); // When throw Exception
+			assertTrue("Get user fail", false); // When throw Exception
 		}
 		
 	}
@@ -55,7 +55,7 @@ public class LoginServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		
 	    User assertUser = loginService.getUser(user);
 	    
-		assertNotNull("getUserSuccess", assertUser);
+		assertNotNull("Get user success", assertUser);
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ public class LoginServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		
 	    User assertUser = loginService.getUser(user);
 	    
-		assertNull("getUserSuccess", assertUser);
+		assertNull("get user success", assertUser);
 	}
 	
 	@Test
@@ -75,7 +75,7 @@ public class LoginServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		user.setUserId("test2");
 		user.setUserpw("asdf");
 		
-		assertSame("success Login", loginService.login(user), LoginCheckStatus.LOGIN_SUCCESS);
+		assertSame("Success login", loginService.login(user), LoginCheckStatus.LOGIN_SUCCESS);
 	}
 	
 	@Test
@@ -85,6 +85,6 @@ public class LoginServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		user.setUserId("test2");
 		user.setUserpw("arstarst");
 		
-		assertSame("success Login", loginService.login(user), LoginCheckStatus.PW_INCORRECT);
+		assertSame("Incorrect password", loginService.login(user), LoginCheckStatus.PW_INCORRECT);
 	}
 }
