@@ -18,8 +18,7 @@ public class LoginRepository {
 
 	public User getUser(int userSeq) {
 
-		return (User) sessionFactory.getCurrentSession().get(User.class,
-				userSeq);
+		return (User) sessionFactory.getCurrentSession().get(User.class, userSeq);
 	}
 
 	public int getUserSeq(User user) {

@@ -40,10 +40,10 @@ public class LoginServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 		user.setUserpw("asdf");
 		try{
 			loginService.createUser(user);
-			assertTrue("Get user success" , true);
+			assertTrue("Create user success" , true);
 		}catch(Exception e){
 			e.printStackTrace();
-			assertTrue("Get user fail", false); // When throw Exception
+			assertTrue("Create user fail", false); // When throw Exception
 		}
 		
 	}
