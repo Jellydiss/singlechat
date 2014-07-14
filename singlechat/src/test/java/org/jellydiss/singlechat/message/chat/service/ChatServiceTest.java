@@ -8,8 +8,9 @@ import org.jellydiss.singlechat.common.config.WebAppInitializer;
 import org.jellydiss.singlechat.common.config.hibernate.HibernateConfig;
 import org.jellydiss.singlechat.common.config.hibernate.RepositoryConfig;
 import org.jellydiss.singlechat.message.entity.Chat;
+import org.jellydiss.singlechat.message.entity.ChatUser;
 import org.jellydiss.singlechat.message.entity.Message;
-import org.jellydiss.singlechat.user.entity.User;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +32,22 @@ public class ChatServiceTest extends AbstractTransactionalJUnit4SpringContextTes
 	@Autowired
 	private ChatService chatService;
 	
+	@Before
+	public void setUp(){
+		chatService.setLastMessageNumber();
+	}
+	
 	@Test
 	@Rollback(true)
 	public void insertMessageSuccess(){
-		User user = new User();
+		ChatUser chatUser = new ChatUser();
 		Message message = new Message();
 		
-		user.setUserSeq(5);
+		chatUser.setUserSeq(5);
 		
 		message.setMessageContent("test");
 		try{
-			chatService.insertMessage(user, message);
+			chatService.insertMessage(chatUser, message);
 			assertTrue("Insert message success" , true);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -52,10 +58,14 @@ public class ChatServiceTest extends AbstractTransactionalJUnit4SpringContextTes
 	
 	@Test
 	public void getLastMessageSuccess(){
-		Chat chat = new Chat();
+		Chat chat = null;
+		try {
+			chat = chatService.getLastMessage();
+			assertNotNull("Success get last message", chat);
+		} catch (Exception e) {
+			assertTrue("Throw exception", false );
+		}
 		
-		chat = chatService.getLastMessage();
-		
-		assertNotNull("Success get last message", chat);		
+				
 	}
 }

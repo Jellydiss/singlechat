@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -18,4 +19,15 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
+	
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		  registry.addResourceHandler("/assets/**")
+		    .addResourceLocations("classpath:WEB-INF/assets/");
+		  registry.addResourceHandler("/css/**")
+		    .addResourceLocations("/css/");
+		  registry.addResourceHandler("/img/**")
+		    .addResourceLocations("/img/");
+		  registry.addResourceHandler("/js/**")
+		    .addResourceLocations("/js/");
+		}
 }
