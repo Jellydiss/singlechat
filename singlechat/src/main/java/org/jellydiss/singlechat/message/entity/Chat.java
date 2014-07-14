@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import org.jellydiss.singlechat.user.entity.User;
 
 @Entity
 @Table(name="CHAT_TB")
@@ -35,7 +34,7 @@ public class Chat implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="USER_SEQ",nullable=false)
-	private User user;
+	private ChatUser chatUser;
 
 	@Id
 	@Column(name = "MSG_SEQ",unique=true, nullable=false)
@@ -47,10 +46,10 @@ public class Chat implements Serializable{
 		super();
 	}
 
-	public Chat(Message message, User user, Integer messageSeq) {
+	public Chat(Message message, ChatUser chatUser, Integer messageSeq) {
 		super();
 		this.message = message;
-		this.user = user;
+		this.chatUser = chatUser;
 		this.messageSeq = messageSeq;
 	}
 
@@ -62,12 +61,12 @@ public class Chat implements Serializable{
 		this.message = message;
 	}
 
-	public User getUser() {
-		return user;
+	public ChatUser getChatUser() {
+		return chatUser;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setChatUser(ChatUser chatUser) {
+		this.chatUser = chatUser;
 	}
 
 	public Integer getMessageSeq() {
