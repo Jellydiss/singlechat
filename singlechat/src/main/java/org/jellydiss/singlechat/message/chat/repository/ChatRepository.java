@@ -21,7 +21,7 @@ public class ChatRepository {
 		return (Chat) sessionFactory.getCurrentSession().get(Chat.class, chatSeq);
 	}
 
-	public int getLastChatNumber() {
+	public int getLastMessageNumber() {
 		Query query = sessionFactory.getCurrentSession().createQuery(
 				"select max(c.messageSeq) as MSG_SEQ from Chat as c");
 
