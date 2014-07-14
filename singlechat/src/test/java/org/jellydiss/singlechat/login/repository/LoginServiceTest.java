@@ -20,71 +20,70 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes ={
-	HibernateConfig.class,
-	RepositoryConfig.class,
-	WebAppInitializer.class,
-	MvcConfiguration.class
-})
-public class LoginServiceTest extends AbstractTransactionalJUnit4SpringContextTests{
-	
+@ContextConfiguration(classes = { HibernateConfig.class,
+		RepositoryConfig.class, WebAppInitializer.class, MvcConfiguration.class })
+public class LoginServiceTest extends
+		AbstractTransactionalJUnit4SpringContextTests {
+
 	@Autowired
 	private LoginService loginService;
 
 	@Test
 	@Rollback(true)
-	public void createUserSuccess(){
+	public void createUserSuccess() {
 		User user = new User();
-		
+
 		user.setUserId("createTest");
 		user.setUserpw("asdf");
-		try{
+		try {
 			loginService.createUser(user);
-			assertTrue("Create user success" , true);
-		}catch(Exception e){
+			assertTrue("Create user success", true);
+		} catch (Exception e) {
 			e.printStackTrace();
 			assertTrue("Create user fail", false); // When throw Exception
 		}
-		
+
 	}
-	
+
 	@Test
-	public void getUserSuccess(){
+	public void getUserSuccess() {
 		User user = new User();
 		user.setUserId("test2");
-		
-	    User assertUser = loginService.getUser(user);
-	    
+
+		User assertUser = loginService.getUser(user);
+
 		assertNotNull("Get user success", assertUser);
 	}
-	
+
 	@Test
-	public void getUserFail(){
+	public void getUserFail() {
 		User user = new User();
 		user.setUserId("nullUser"); // emptyUser
-		
-	    User assertUser = loginService.getUser(user);
-	    
-		assertNull("get user success", assertUser);
+
+		User assertUser = loginService.getUser(user);
+
+		assertNull("Get non existent user is null", assertUser);
 	}
-	
+
 	@Test
-	public void loginSuccess(){
+	public void loginSuccess() {
 		User user = new User();
-		
+
 		user.setUserId("test2");
 		user.setUserpw("asdf");
-		
-		assertSame("Success login", loginService.login(user), LoginCheckStatus.LOGIN_SUCCESS);
+
+		assertSame("Success login", loginService.login(user),
+				LoginCheckStatus.LOGIN_SUCCESS);
 	}
-	
+
 	@Test
-	public void loginIncorrectPassword(){
+	public void loginIncorrectPassword() {
 		User user = new User();
-		
+
 		user.setUserId("test2");
 		user.setUserpw("arstarst");
-		
-		assertSame("Incorrect password", loginService.login(user), LoginCheckStatus.PW_INCORRECT);
+
+		assertSame("Incorrect password", loginService.login(user),
+				LoginCheckStatus.PW_INCORRECT);
 	}
 }
