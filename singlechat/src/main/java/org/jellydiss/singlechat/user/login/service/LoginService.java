@@ -11,6 +11,8 @@ import java.util.Date;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.jellydiss.singlechat.common.util.SecurityUtil;
 import org.jellydiss.singlechat.user.entity.User;
@@ -41,19 +43,26 @@ public class LoginService {
 		loginRepository.createUser(encodeUser(user));
 	}
 
-	public LoginCheckStatus login(User user) {
+	public LoginCheckStatus login(User user, HttpServletRequest request) {
 
 		User selectedUser = getUser(user);
 
 		if (selectedUser == null) {
 			createUser(user);
-			return login(user);
+			return login(user,request);
 		}
-		if (encodeUser(user).getUserpw().equals(selectedUser.getUserpw()))
+		if (encodeUser(user).getUserpw().equals(selectedUser.getUserpw())){
+			registerUserToSession(user, request.getSession());
 			return LoginCheckStatus.LOGIN_SUCCESS;
+		
+		}
 
 		return LoginCheckStatus.PW_INCORRECT;
 
+	}
+
+	private void registerUserToSession(User user, HttpSession session) {
+		session.setAttribute("user", user);		
 	}
 
 	private User encodeUser(User user) {
