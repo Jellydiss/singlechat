@@ -31,7 +31,7 @@ public class User implements Serializable {
 	private String userId;
 
 	@Column(name = "USER_PW", nullable=false)
-	private String userpw;
+	private String userPw;
 
 	@Column(name = "REG_DATETIME")
 	private String regDateTime;
@@ -43,12 +43,12 @@ public class User implements Serializable {
 		super();
 	}
 
-	public User(Integer userSeq, String userId, String userpw,
+	public User(Integer userSeq, String userId, String userPw,
 			String regDateTime, String updDateTime) {
 		super();
 		this.userSeq = userSeq;
 		this.userId = userId;
-		this.userpw = userpw;
+		this.userPw = userPw;
 		this.regDateTime = regDateTime;
 		this.updDateTime = updDateTime;
 	}
@@ -70,12 +70,12 @@ public class User implements Serializable {
 		this.userId = userId;
 	}
 
-	public String getUserpw() {
-		return userpw;
+	public String getUserPw() {
+		return userPw;
 	}
 
-	public void setUserpw(String userpw) {
-		this.userpw = userpw;
+	public void setUserPw(String userpw) {
+		this.userPw = userpw;
 	}
 
 	public String getRegDateTime() {

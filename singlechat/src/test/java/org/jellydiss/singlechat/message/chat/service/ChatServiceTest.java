@@ -4,9 +4,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
 import org.jellydiss.singlechat.common.config.MvcConfiguration;
+import org.jellydiss.singlechat.common.config.RepositoryConfig;
 import org.jellydiss.singlechat.common.config.WebAppInitializer;
-import org.jellydiss.singlechat.common.config.hibernate.HibernateConfig;
-import org.jellydiss.singlechat.common.config.hibernate.RepositoryConfig;
 import org.jellydiss.singlechat.message.entity.Chat;
 import org.jellydiss.singlechat.message.entity.ChatUser;
 import org.jellydiss.singlechat.message.entity.Message;
@@ -23,7 +22,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes ={
-	HibernateConfig.class,
 	RepositoryConfig.class,
 	WebAppInitializer.class,
 	MvcConfiguration.class

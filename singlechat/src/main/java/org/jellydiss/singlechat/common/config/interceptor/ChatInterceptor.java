@@ -16,17 +16,19 @@ public class ChatInterceptor extends HandlerInterceptorAdapter {
 			HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession(false);
 
-		return sessionExist(session, response)
-				&& userNameExistsInSession(session, response);
+		
+		if( sessionExist(session, response)
+				&& userNameExistsInSession(session, response))
+			return true;
+		
+		response.sendRedirect("");
+		return false; 
 	}
 
 	private boolean sessionExist(HttpSession session,
 			HttpServletResponse response) throws IOException {
-		if (session == null) {
-			response.sendRedirect("/");
+		if (session == null) 			
 			return false;
-		}
-		
 		return true;
 	}
 
@@ -34,11 +36,8 @@ public class ChatInterceptor extends HandlerInterceptorAdapter {
 			HttpServletResponse response) throws IOException {
 		String userName = (String) session.getAttribute("userName");
 
-		if (userName == null) {
-			response.sendRedirect("/");
+		if (userName == null) 
 			return false;
-		}
-
 		return true;
 	}
 }

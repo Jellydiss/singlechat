@@ -127,6 +127,12 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.tomcat</groupId>
+		    <artifactId>tomcat-dbcp</artifactId>
+		    <version>7.0.52</version>
+		</dependency>
 
 
 		<dependency>

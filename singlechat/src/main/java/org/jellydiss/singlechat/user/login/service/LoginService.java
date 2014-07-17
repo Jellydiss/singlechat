@@ -28,12 +28,10 @@ public class LoginService {
 	@Autowired
 	private LoginRepository loginRepository;
 
-	@Transactional
 	public User getUser(User user) {
 		return loginRepository.getUser(loginRepository.getUserSeq(user));
 	}
 
-	@Transactional
 	public void createUser(User user) {
 		DateFormat sdFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date nowDate = new Date();
@@ -43,6 +41,7 @@ public class LoginService {
 		loginRepository.createUser(encodeUser(user));
 	}
 
+	@Transactional
 	public LoginCheckStatus login(User user, HttpServletRequest request) {
 
 		User selectedUser = getUser(user);
@@ -51,7 +50,7 @@ public class LoginService {
 			createUser(user);
 			return login(user,request);
 		}
-		if (encodeUser(user).getUserpw().equals(selectedUser.getUserpw())){
+		if (encodeUser(user).getUserPw().equals(selectedUser.getUserPw())){
 			registerUserToSession(user, request.getSession());
 			return LoginCheckStatus.LOGIN_SUCCESS;
 		
@@ -68,7 +67,7 @@ public class LoginService {
 	private User encodeUser(User user) {
 		try {
 			SecurityUtil.getInstance();
-			user.setUserpw(SecurityUtil.AES_Encode(user.getUserpw()));
+			user.setUserPw(SecurityUtil.AES_Encode(user.getUserPw()));
 		} catch (InvalidKeyException | UnsupportedEncodingException
 				| NoSuchAlgorithmException | NoSuchPaddingException
 				| InvalidAlgorithmParameterException

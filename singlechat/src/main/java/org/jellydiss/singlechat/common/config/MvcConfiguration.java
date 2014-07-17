@@ -8,7 +8,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
 
 @EnableWebMvc
 @Configuration
@@ -21,7 +23,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
-	
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		  registry.addResourceHandler("/assets/**")
 		    .addResourceLocations("classpath:WEB-INF/assets/");
@@ -34,6 +36,9 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 		}
 	@Override
 	public void addInterceptors(InterceptorRegistry registry){
-		registry.addInterceptor(new ChatInterceptor());
+		registry.addInterceptor(new LocaleChangeInterceptor());
+		registry.addInterceptor(new ChatInterceptor()).addPathPatterns("/chat/**");
 	}
+	
+	
 }

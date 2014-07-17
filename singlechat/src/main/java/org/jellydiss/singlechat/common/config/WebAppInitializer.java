@@ -12,7 +12,7 @@ import javax.servlet.ServletRegistration;
 
 public class WebAppInitializer implements WebApplicationInitializer {
 
-	private static final String CONFIG_LOCATION = "org.jellydiss.singlechat";
+	private static final String BASE_CONFIG_LOCATION = "org.jellydiss.singlechat";
 	private static final String MAPPING_URL = "/";
 
 	@Override
@@ -20,7 +20,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 			throws ServletException {
 		WebApplicationContext context = getContext();
 		servletContext.addListener(new ContextLoaderListener(context));
-		
+
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
 				"DispatcherServlet", new DispatcherServlet(context));
 		dispatcher.setLoadOnStartup(1);
@@ -29,7 +29,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
 	private AnnotationConfigWebApplicationContext getContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.setConfigLocation(CONFIG_LOCATION);
+		context.setConfigLocation(BASE_CONFIG_LOCATION);
 		return context;
 	}
 

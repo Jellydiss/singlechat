@@ -18,21 +18,21 @@ public class LoginController {
 	private LoginService loginService;
 	
 	
-	@RequestMapping(value ="/", method = RequestMethod.GET)
+	@RequestMapping(value ="", method = RequestMethod.GET)
 	public String Login(){
 		return "login";
 	}
 	
-	@RequestMapping(value ="/", method = RequestMethod.POST)
+	@RequestMapping(value ="", method = RequestMethod.POST)
 	public String loginProcess(@ModelAttribute User userInfo, HttpServletRequest request) {
 	
-	LoginCheckStatus status = loginService.login(userInfo, request);
+		LoginCheckStatus status = loginService.login(userInfo, request);
+	
+		if (status == LoginCheckStatus.PW_INCORRECT) {
+			request.setAttribute("loginMsg", "비밀번호가 일치하지 않습니다.");
+			return "login";
+		}
 
-	if (status == LoginCheckStatus.PW_INCORRECT) {
-		request.setAttribute("loginMsg", "비밀번호가 일치하지 않습니다.");
-		return "login";
-	}
-
-	return "redirect:/chat";
+		return "redirect:/chat";
 	}
 }
