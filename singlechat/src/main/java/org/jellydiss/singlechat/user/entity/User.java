@@ -1,7 +1,14 @@
 package org.jellydiss.singlechat.user.entity;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,17 +17,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.jellydiss.singlechat.common.util.SecurityUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name = "USER_MST_TB")
 public class User implements Serializable {
-
+	private static final Logger LOG = LoggerFactory.getLogger(User.class);
+	private static final long serialVersionUID = 3615139577208253687L;
+	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
-
-	private static final long serialVersionUID = 7111232751743240524L;
 	
 	@Id
 	@Column(name = "USER_SEQ", unique=true, nullable=false)
@@ -32,7 +42,7 @@ public class User implements Serializable {
 
 	@Column(name = "USER_PW", nullable=false)
 	private String userPw;
-
+	
 	@Column(name = "REG_DATETIME")
 	private String regDateTime;
 
@@ -75,7 +85,15 @@ public class User implements Serializable {
 	}
 
 	public void setUserPw(String userpw) {
-		this.userPw = userpw;
+		try {
+			SecurityUtil.getInstance();
+			this.userPw = SecurityUtil.AES_Encode(userpw);
+		} catch (InvalidKeyException | UnsupportedEncodingException
+				| NoSuchAlgorithmException | NoSuchPaddingException
+				| InvalidAlgorithmParameterException
+				| IllegalBlockSizeException | BadPaddingException e) {
+			LOG.error("Error occured while encode password User.", e);
+		}
 	}
 
 	public String getRegDateTime() {

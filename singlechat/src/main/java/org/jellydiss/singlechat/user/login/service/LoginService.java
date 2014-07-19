@@ -1,20 +1,12 @@
 package org.jellydiss.singlechat.user.login.service;
 
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.jellydiss.singlechat.common.util.SecurityUtil;
 import org.jellydiss.singlechat.user.entity.User;
 import org.jellydiss.singlechat.user.login.enums.LoginCheckStatus;
 import org.jellydiss.singlechat.user.login.repository.LoginRepository;
@@ -24,6 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("loginService")
 public class LoginService {
+	
+	private static final DateFormat dateFormat = 
+			new SimpleDateFormat("yyyyMMddHHmmss");
 
 	@Autowired
 	private LoginRepository loginRepository;
@@ -33,52 +28,31 @@ public class LoginService {
 	}
 
 	public void createUser(User user) {
-		DateFormat sdFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-		Date nowDate = new Date();
-		user.setRegDateTime(new String(sdFormat.format(nowDate)));
-		user.setUpdDateTime(new String(sdFormat.format(nowDate)));
+		String currentTime = dateFormat.format(new Date());
+		user.setRegDateTime(currentTime);
+		user.setUpdDateTime(currentTime);
 
-		loginRepository.createUser(encodeUser(user));
+		loginRepository.createUser(user);
 	}
 
 	@Transactional
-	public LoginCheckStatus login(User user, HttpServletRequest request) {
-
-		User selectedUser = getUser(user);
+	public LoginCheckStatus login(User userQuery, HttpServletRequest request) {
+		User selectedUser = getUser(userQuery);
 
 		if (selectedUser == null) {
-			createUser(user);
-			return login(user,request);
+			createUser(userQuery);
+			return login(userQuery, request);
 		}else {
-			User encodeUser = encodeUser(user);
-			if (encodeUser.getUserPw().equals(selectedUser.getUserPw())){
-				registerUserToSession(user, request.getSession());
+			if (userQuery.getUserPw().equals(selectedUser.getUserPw())){
+				registerUserToSession(userQuery, request.getSession());
 				return LoginCheckStatus.LOGIN_SUCCESS;
-			
+			} else {
+				return LoginCheckStatus.PW_INCORRECT;
 			}
 		}
-		return LoginCheckStatus.PW_INCORRECT;
-
 	}
 
 	private void registerUserToSession(User user, HttpSession session) {
 		session.setAttribute("user", user);		
 	}
-
-	private User encodeUser(User user) {
-		try {
-			SecurityUtil.getInstance();
-			user.setUserPw(SecurityUtil.AES_Encode(user.getUserPw()));
-		} catch (InvalidKeyException | UnsupportedEncodingException
-				| NoSuchAlgorithmException | NoSuchPaddingException
-				| InvalidAlgorithmParameterException
-				| IllegalBlockSizeException | BadPaddingException e) {
-
-			e.printStackTrace();
-			return null;
-		}
-		return user;
-
-	}
-
 }
