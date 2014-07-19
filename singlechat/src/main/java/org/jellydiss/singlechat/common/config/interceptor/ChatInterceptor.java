@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.jellydiss.singlechat.user.entity.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -34,7 +35,7 @@ public class ChatInterceptor extends HandlerInterceptorAdapter {
 
 	private boolean userNameExistsInSession(HttpSession session,
 			HttpServletResponse response) throws IOException {
-		String userName = (String) session.getAttribute("userName");
+		User userName = (User) session.getAttribute("user");
 
 		if (userName == null) 
 			return false;

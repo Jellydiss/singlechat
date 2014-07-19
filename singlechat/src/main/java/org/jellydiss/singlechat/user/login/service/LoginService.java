@@ -49,13 +49,14 @@ public class LoginService {
 		if (selectedUser == null) {
 			createUser(user);
 			return login(user,request);
+		}else {
+			User encodeUser = encodeUser(user);
+			if (encodeUser.getUserPw().equals(selectedUser.getUserPw())){
+				registerUserToSession(user, request.getSession());
+				return LoginCheckStatus.LOGIN_SUCCESS;
+			
+			}
 		}
-		if (encodeUser(user).getUserPw().equals(selectedUser.getUserPw())){
-			registerUserToSession(user, request.getSession());
-			return LoginCheckStatus.LOGIN_SUCCESS;
-		
-		}
-
 		return LoginCheckStatus.PW_INCORRECT;
 
 	}

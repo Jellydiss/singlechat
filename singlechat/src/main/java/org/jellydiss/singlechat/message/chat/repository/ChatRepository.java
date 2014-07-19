@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Transactional
 public class ChatRepository {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	@Transactional
 	public void insertMessage(Chat chatMessage) {
 		sessionFactory.getCurrentSession().save(chatMessage);
 	}
