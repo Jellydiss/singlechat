@@ -30,9 +30,6 @@ function sendMessage(){
 			message : $('textarea').val()
 	};
 
-	
-	
-	
 	$.ajax({
 		  type: 'POST',
 		  url: "chat/insertChat",
@@ -53,10 +50,16 @@ $(document)
 				sendMessage();
 			});
 		});
+
 $(document).keydown(function(k) {
 if (k.which == 13) {
-	sendMessage();
+		sendMessage();
+	}
+});
 
+$(document).keyup(function(k) {
+	if (k.which == 13) {
+		 $('textarea').val("") ;
 	}
 });
 
@@ -64,6 +67,8 @@ if (k.which == 13) {
 /* var lastSequence = getLastSequence(); */
 var currentSequence = 0; 
 var lastSequence = 0;
+
+var tempSeq = 0;
 setInterval("loadNewData()",3);
 
 function loadNewData(){
@@ -77,7 +82,6 @@ function loadNewData(){
 	
 }
 
-var tempSeq = 0;
 
 function getLastSequence (){
 	
@@ -86,11 +90,11 @@ function getLastSequence (){
         type: "get",
         dataType: "json",
         success: function(data){
-
+        	lastSequence = data.lastSeq;
         	if(currentSequence == 0){
-        		currentSequence = data.lastSequence;
+        		currentSequence = data.lastSeq;
         	}
-        	lastSequence = data.lastSequence;        	
+        	  	
         }
 	});
 	
