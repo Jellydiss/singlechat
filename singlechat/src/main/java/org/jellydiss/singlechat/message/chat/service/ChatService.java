@@ -1,5 +1,6 @@
 package org.jellydiss.singlechat.message.chat.service;
 
+import org.jellydiss.singlechat.common.util.DateUtil;
 import org.jellydiss.singlechat.message.chat.repository.ChatRepository;
 import org.jellydiss.singlechat.message.entity.Chat;
 import org.jellydiss.singlechat.message.entity.ChatStatus;
@@ -24,6 +25,7 @@ public class ChatService {
 	public void insertMessage(ChatUser chatUser, Message message) {
 		Chat chat = new Chat();
 		chat.setMessage(message);
+		chat.getMessage().setRegDateTime(DateUtil.getCurrentTime());
 		chat.setChatUser(chatUser);
 		chatRepository.insertMessage(chat);
 		setLastMessageNumber();
