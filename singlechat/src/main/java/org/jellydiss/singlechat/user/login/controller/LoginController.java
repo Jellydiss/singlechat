@@ -29,7 +29,7 @@ public class LoginController {
 		LoginCheckStatus status = loginService.login(userInfo, request);
 	
 		if (status == LoginCheckStatus.PW_INCORRECT) {
-			request.setAttribute("loginMsg", "비밀번호가 일치하지 않습니다.");
+			request.setAttribute("loginMsg", "Incorrect Password");
 			return "login";
 		}
 

@@ -1,0 +1,75 @@
+@CHARSET "UTF-8";
+
+
+.header {
+	vertical-align: middle;
+	text-align: center;
+	color: #0099CC;
+	font-size: 50px;
+	margin: 10px;
+	width: 100%;
+}
+
+body {
+	background-color: #303030;
+}
+
+div {
+	text-align: left;
+}
+
+font {
+	padding: 5px;
+	color: #0099cc;
+}
+
+button {
+	border-style: none;
+	background-color: #0099CC;
+	margin-left: 10px;
+	float: right;
+	width: 50px;
+}
+
+.nicknameMessage {
+	color: #0099cc;
+}
+
+.messages {
+	width: 750px;
+	margin-left: 300px;
+	padding: 10px;
+	text-align: left;
+	height: 500px;
+	background-color: #CCCCCC;
+	text-align: left;
+	overflow: scroll;
+}
+.messageDiv{
+	text-align: left;
+	float: right;
+}
+.input {
+	width: 750px;
+	margin-left: 300px;
+	padding: 10px;
+	height: auto;
+	background-color: #101010;
+	text-align: left;
+}
+
+.textarea {
+	width: inherit;
+	height: 100px;
+	text-align: left;
+	vertical-align: top;
+	word-wrap: break-word;
+}
+
+.nickname {
+	width: 100px;
+	height: 20px;
+	text-align: left;
+	vertical-align: top;
+}
+

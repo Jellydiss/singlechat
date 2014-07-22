@@ -14,9 +14,10 @@ $(document).ready(function(){
 	$('#button').click(function(){
 		var userId=$('#userId').val();
 		var userPw=$('#userPw').val();
-
+		$('#loginMsg').slideDown().html("");
 	if(userId=="")
 	{
+		
 		$('#dis').slideDown().html("<span>Please type Username</span>");
 		return false;
 	}
@@ -31,6 +32,15 @@ $(document).ready(function(){
 	});
 </script>
 
+<% 
+	if(request.getAttribute("loginMsg") != null){
+%>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#loginMsg').slideDown().html('<span id="error">Incorrect Password </span>');
+});
+</script>
+<%	 } %>
 
 </head>
 <body>
@@ -51,6 +61,7 @@ $(document).ready(function(){
                 <div class="input_row" id="id_area">
                 	<input type="password" id="userPw" name="userPw"  class="radius2" placeholder="Password" />
                 </div>
+                <label id="loginMsg"></label>
                 <label id="dis"></label><br>
                 <p>
                	<button type="button" id="button" class="radius title" name="button">Login</button>
