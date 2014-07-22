@@ -28,8 +28,9 @@ $(document)
 
 $(document).keydown(function(k) {
 	if (k.which == 13) {
-			if(($('textarea').val() != "") && ($('textarea').val() != "\n"))
+			if(($('textarea').val() != "") && ($('textarea').val() != "\n")){
 				sendMessage();
+			} else $('textarea').val("");
 		}
 });
 
@@ -82,18 +83,12 @@ function loadData(){
         url: "chat/getLastMessage",
         type: "get",
         success: function(data) {
-        	$.each(data, function(key) {
-        		var list = data[key];	
-				for(var i = 0; i < list.length; i++){					
-    	
     			$('.messages')[0].innerHTML += "><font class='nicknameMessage'>"
-    					+ data.chatLists[i].userName.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br />")
+    					+ data.userName.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br />")
     					+ "</font>: "
-    					+ data.chatLists[i].message.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br />")
+    					+ data.message.messageContent.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br />")
     					+ "<br>";
     			$(".messages")[0].scrollTop = $(".messages")[0].scrollHeight + 10;
-    		}
-        	});
         }, error: function(a, b, c) {
             console.log(a);
             console.log(b);

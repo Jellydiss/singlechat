@@ -31,7 +31,7 @@
 		<textarea class="textarea"></textarea>
 		<br> <font>Nickname: </font> 
 		<font>  <%= userInfo.getUserId() %></font> 
-		<input class="userSequence" type="hidden" name="userSequence" value="<%=userInfo.getUserSeq() %>" />
+		<input class="userSeq" type="hidden" name="userSeq" value="<%=userInfo.getUserSeq() %>" />
 		<button>OK</button>
 	</div>
 
