@@ -39,7 +39,7 @@ public class LoginService {
 			return login(userQuery, request);
 		}else {
 			if (userQuery.getUserPw().equals(selectedUser.getUserPw())){
-				registerUserToSession(userQuery, request.getSession());
+				registerUserToSession(selectedUser, request.getSession());
 				return LoginCheckStatus.LOGIN_SUCCESS;
 			} else {
 				return LoginCheckStatus.PW_INCORRECT;
