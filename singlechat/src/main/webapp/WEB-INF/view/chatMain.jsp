@@ -6,10 +6,10 @@
 <% 
 	User userInfo = null;
 
-	userInfo = (User) session.getAttribute("userInfo"); 
+	userInfo = (User) session.getAttribute("user"); 
 	
 	if (userInfo == null){
-		response.sendRedirect("/webchat/login");
+		response.sendRedirect("");
 	}
 %>
 
