@@ -144,9 +144,6 @@ function loadData(){
 </head>
 
 <body>
-	<div class='header'>
-		<B id="#id">Jellydiss</B>
-	</div>
 	<div class="messages"></div>
 	<div class="input">
 		<textarea class="textarea"></textarea>
