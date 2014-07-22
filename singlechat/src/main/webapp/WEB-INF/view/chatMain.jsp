@@ -84,7 +84,6 @@ function loadNewData(){
 
 
 function getLastSequence (){
-	
 	$.ajax({
         url: "chat/getLastSequence",
         type: "get",
@@ -97,8 +96,6 @@ function getLastSequence (){
         	  	
         }
 	});
-	
-	
 	return tempSeq;
 };
 
@@ -119,9 +116,9 @@ function loadData(){
 				for(var i = 0; i < list.length; i++){					
     	
     			$('.messages')[0].innerHTML += "><font class='nicknameMessage'>"
-    					+ data.chatLists[i].userName 
+    					+ data.chatLists[i].userName.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br />")
     					+ "</font>: "
-    					+ data.chatLists[i].message
+    					+ data.chatLists[i].message.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br />")
     					+ "<br>";
     			$(".messages")[0].scrollTop = $(".messages")[0].scrollHeight + 10;
     		}
