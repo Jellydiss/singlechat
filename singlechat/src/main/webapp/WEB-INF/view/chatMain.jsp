@@ -195,7 +195,7 @@ function loadData(){
         	$.each(data, function(key) {
         		var list = data[key];	
 				for(var i = 0; i < list.length; i++){					
-    			
+    	
     			$('.messages')[0].innerHTML += "><font class='nicknameMessage'>"
     					+ data.chatLists[i].userName 
     					+ "</font>: "

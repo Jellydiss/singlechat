@@ -1,12 +1,9 @@
 package org.jellydiss.singlechat.user.login.service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jellydiss.singlechat.common.util.DateUtil;
 import org.jellydiss.singlechat.user.entity.User;
 import org.jellydiss.singlechat.user.login.enums.LoginCheckStatus;
 import org.jellydiss.singlechat.user.login.repository.LoginRepository;
@@ -17,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("loginService")
 public class LoginService {
 	
-	private static final DateFormat dateFormat = 
-			new SimpleDateFormat("yyyyMMddHHmmss");
+
 
 	@Autowired
 	private LoginRepository loginRepository;
@@ -28,9 +24,8 @@ public class LoginService {
 	}
 
 	public void createUser(User user) {
-		String currentTime = dateFormat.format(new Date());
-		user.setRegDateTime(currentTime);
-		user.setUpdDateTime(currentTime);
+		user.setRegDateTime(DateUtil.getCurrentTime());
+		user.setUpdDateTime(DateUtil.getCurrentTime());
 
 		loginRepository.createUser(user);
 	}

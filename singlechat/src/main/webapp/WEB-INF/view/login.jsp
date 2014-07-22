@@ -12,15 +12,15 @@
 <script>
 $(document).ready(function(){
 	$('#button').click(function(){
-		var username=$('#username').val();
-		var password=$('#password').val();
+		var userId=$('#userId').val();
+		var userPw=$('#userPw').val();
 
-	if(username=="")
+	if(userId=="")
 	{
 		$('#dis').slideDown().html("<span>Please type Username</span>");
 		return false;
 	}
-	if(password=="")
+	if(userPw=="")
 		{
 			$('#dis').slideDown().html('<span id="error">Please type Password</span>');
 				return false;

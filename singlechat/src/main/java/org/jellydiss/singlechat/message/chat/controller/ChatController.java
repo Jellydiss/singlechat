@@ -9,7 +9,7 @@ import org.jellydiss.singlechat.message.chat.service.ChatService;
 import org.jellydiss.singlechat.message.entity.ChatStatus;
 import org.jellydiss.singlechat.message.entity.ChatUser;
 import org.jellydiss.singlechat.message.entity.Message;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -47,7 +47,7 @@ public class ChatController {
 	
 	
 	
-	@RequestMapping(value = "chatData", method = RequestMethod.GET)
+	@RequestMapping(value = "getLastMessage", method = RequestMethod.GET)
 	@ResponseBody
 	private JSONObject getLastMessage(HttpServletRequest request, HttpServletResponse response) {
      	return chatService.getLastMessageJson();
