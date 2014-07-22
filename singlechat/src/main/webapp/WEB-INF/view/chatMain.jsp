@@ -38,7 +38,7 @@ function sendMessage(){
 		  success: function	(){
 		  }
 		});
-	 $('textarea').val("") ;
+	 $('textarea').val("");
 	
 };
 
@@ -47,19 +47,21 @@ $(document)
 .ready(
 		function() {
 			$('button').click(function() {
-				sendMessage();
+				if(($('textarea').val() != "") && ($('textarea').val() != "\n"))
+					sendMessage();
 			});
 		});
 
 $(document).keydown(function(k) {
-if (k.which == 13) {
-		sendMessage();
-	}
+	if (k.which == 13) {
+			if(($('textarea').val() != "") && ($('textarea').val() != "\n"))
+				sendMessage();
+		}
 });
 
 $(document).keyup(function(k) {
 	if (k.which == 13) {
-		 $('textarea').val("") ;
+		 $('textarea').val("");
 	}
 });
 
