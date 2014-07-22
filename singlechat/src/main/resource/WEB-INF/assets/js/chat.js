@@ -1,7 +1,7 @@
 function sendMessage(){
 	var params = {
-			userSequence :  $('input').val(), 
-			message : $('textarea').val()
+			userSeq :  $('input').val(), 
+			messageContent : $('textarea').val()
 	};
 
 	$.ajax({
