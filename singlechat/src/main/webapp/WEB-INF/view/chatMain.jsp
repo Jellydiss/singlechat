@@ -24,16 +24,15 @@
 <script type="text/javascript" src="./assets/js/chat.js" ></script>
 
 </head>
-
-<body>
-	<div class="messages"></div>
-	<div class="input">
-		<textarea class="textarea"></textarea>
-		<br> <font>Nickname: </font> 
-		<font>  <%= userInfo.getUserId() %></font> 
-		<input class="userSeq" type="hidden" name="userSeq" value="<%=userInfo.getUserSeq() %>" />
-		<button>OK</button>
-	</div>
-
-</body>
+	<body>
+		<div class="messages"></div>
+		<div class="input">
+			<textarea class="textarea"></textarea>
+			<button>Send</button>
+			<br> <font>Nickname: </font> 
+			<font>  <%= userInfo.getUserId() %></font> 
+			<input class="userSeq" type="hidden" name="userSeq" value="<%=userInfo.getUserSeq() %>" />
+			
+		</div>
+	</body>
 </html>

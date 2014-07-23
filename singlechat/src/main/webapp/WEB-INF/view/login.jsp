@@ -11,6 +11,9 @@
 
 <script>
 $(document).ready(function(){
+
+
+
 	$('#button').click(function(){
 		var userId=$('#userId').val();
 		var userPw=$('#userPw').val();
@@ -26,7 +29,21 @@ $(document).ready(function(){
 			$('#dis').slideDown().html('<span id="error">Please type Password</span>');
 				return false;
 			}
-	$('#login').submit();
+
+	var params = {
+			userId : $('#userId').val(),
+			userPw : $('#userPw').val()
+	};
+	$.ajax({
+		  type: 'POST',
+		  url: "",
+		  data: params,
+		  contentType: "application/x-www-form-urlencoded; charset=utf-8",
+		  success: function	(){
+					location.href="chat";
+				  }
+		});
+	
 		});
 	
 	});
@@ -51,7 +68,7 @@ $(document).ready(function(){
         	<div class="logo"><img src="./assets/img/logo.png"  /></div>
     	</div><!--loginheader-->
         <div class="loginform">
-        		<form id="login" action="" method="post">
+        		<form id="login" action="" method="post" accept-charset="UTF-8">
 	            	<div class="input_row" id="id_area">
 		            	<span class="input_box">
 		            		
