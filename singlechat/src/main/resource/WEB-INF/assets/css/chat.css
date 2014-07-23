@@ -18,7 +18,7 @@ button {
 	border-style: none;
 	background-color: #0099CC;
 	float: right;
-	width: 10%;
+	width: 20%;
 	height: 80%;
 }
 
@@ -43,7 +43,7 @@ button {
 }
 
 .textarea {
-	width: 88%;
+	width: 78%;
 	height: 80%;
 	text-align: left;
 	vertical-align: top;
