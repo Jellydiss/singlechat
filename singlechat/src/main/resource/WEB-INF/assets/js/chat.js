@@ -8,6 +8,7 @@ function sendMessage(){
 		  type: 'POST',
 		  url: "chat/insertChat",
 		  data: params,
+		  async: false,
 		  contentType: "application/x-www-form-urlencoded; charset=utf-8",
 		  success: function	(){
 		  }
@@ -65,6 +66,7 @@ function getLastSequence (){
         url: "chat/getLastSequence",
         type: "get",
         dataType: "json",
+        async: false,
         success: function(data){
         	lastSequence = data.lastSeq;
         	if(currentSequence == 0){
@@ -82,6 +84,7 @@ function loadData(){
 	$.ajax({
         url: "chat/getLastMessage",
         type: "get",
+        async: false,
         success: function(data) {
     			$('.messages')[0].innerHTML += "><font class='nicknameMessage'>"
     					+ data.userName.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br />")
