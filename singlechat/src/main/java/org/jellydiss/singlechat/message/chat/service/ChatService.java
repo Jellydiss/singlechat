@@ -19,7 +19,11 @@ public class ChatService {
 	private ChatRepository chatRepository;
 
 	public void setLastMessageNumber() {
-		ChatStatus.lastSequenceNumber = chatRepository.getLastMessageNumber();
+		try {
+			ChatStatus.lastSequenceNumber = chatRepository.getLastMessageNumber();
+		} catch(NullPointerException npe){
+			ChatStatus.lastSequenceNumber = 0;
+		}
 	}
 
 	public void insertMessage(ChatUser chatUser, Message message) {
